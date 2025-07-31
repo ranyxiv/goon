@@ -2,7 +2,7 @@
 -- Interface feita com Rayfield
 -- Script para automações no Grow a Garden
 
-local Rayfield = loadstring(game:HttpGet("https://raw.githubusercontent.com/ranyxiv/goon/refs/heads/main/goon"))()
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
 -- Criar janela principal
 local Window = Rayfield:CreateWindow({
