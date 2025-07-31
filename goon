@@ -1,0 +1,58 @@
+debugX = true
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+-- Cria a janela principal da interface
+local Window = Rayfield:CreateWindow({
+   Name = "goon hub",
+   Icon = 0, -- Ícone na barra superior. Pode usar ícones Lucide (string) ou imagem do Roblox (número). 0 para sem ícone (padrão).
+   LoadingTitle = "voce e importante",
+   LoadingSubtitle = "feito por um nigger",
+   Theme = "Default", -- Verifique os temas em https://docs.sirius.menu/rayfield/configuration/themes
+
+   DisableRayfieldPrompts = false, -- Desativa os prompts padrão do Rayfield
+   DisableBuildWarnings = false, -- Impede Rayfield de avisar quando há incompatibilidade de versão com o script
+
+   -- Configuração de salvamento
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = hubdata, -- Cria uma pasta personalizada para seu hub/jogo
+      FileName = "Big Hub"
+   },
+
+   -- Configurações do Discord
+   Discord = {
+      Enabled = false, -- Pergunta ao usuário se deseja entrar no servidor Discord (se o executor permitir)
+      Invite = "noinvitelink", -- Código do convite do Discord (sem discord.gg/)
+      RememberJoins = true -- Define como false para pedir ao usuário que entre no Discord toda vez
+   },
+
+   -- Sistema de chave (opcional)
+   KeySystem = false, -- Defina como true para ativar o sistema de chave
+   KeySettings = {
+      Title = "Sem título",
+      Subtitle = "Sistema de Chaves",
+      Note = "Nenhum método para obter a chave foi fornecido", -- Use para explicar como obter a chave
+      FileName = "Key", -- Recomenda-se usar algo único para evitar conflitos com outros scripts Rayfield
+      SaveKey = true, -- Salva a chave do usuário. Se você mudar a chave, ele não poderá usar o script antigo
+      GrabKeyFromSite = false, -- Se true, define abaixo o site RAW de onde o Rayfield deve obter a chave
+      Key = {"Hello"} -- Lista de chaves aceitas. Pode ser links RAW (pastebin, github etc) ou strings simples
+   }
+})
+
+-- Criação de uma aba na interface
+local Tab = Window:CreateTab("Exemplo de Aba", 4483362458) -- Título, Imagem
+
+-- Seção dentro da aba
+local Section = Tab:CreateSection("Exemplo de Seção")
+
+-- Botão com função vinculada
+local Button = Tab:CreateButton({
+   Name = "Exemplo de Botão",
+   Callback = function()
+      -- Função executada ao clicar no botão
+   end,
+})
+
+-- Carrega configurações salvas
+Rayfield:LoadConfiguration()
