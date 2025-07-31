@@ -47,7 +47,7 @@ local Tab = Window:CreateTab("Exemplo de Aba", 4483362458) -- Título, Imagem
 local Section = Tab:CreateSection("Exemplo de Seção")
 
 -- Botão com função vinculada
-local Button = Tab:CreateButton({
+local Button = Tab:Createtoggle({
    Name = "auto buy carrot",
    Callback = function(local args = {
    }
