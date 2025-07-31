@@ -1,5 +1,5 @@
 --[[
-    @author rany (ranyxiv)
+    @author depso (depthso)
     @description Grow a Garden auto-farm script with Rayfield UI
     https://www.roblox.com/games/126884695634066
 ]]
@@ -314,8 +314,8 @@ local Rayfield = loadstring(game:HttpGet(
 ))()
 
 local Window = Rayfield:CreateWindow({
-    Name = GameInfo.Name .. " goon hub | Rany",
-    LoadingTitle = "gooning...",
+    Name = GameInfo.Name .. " | Depso",
+    LoadingTitle = "Loading UI...",
     ConfigurationSaving = { Enabled = false },
     KeySystem = false
 })
