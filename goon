@@ -1,67 +1,36 @@
-debugX = true
-
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-
--- Cria a janela principal da interface
 local Window = Rayfield:CreateWindow({
-   Name = "goon hub",
-   Icon = 0, -- Ícone na barra superior. Pode usar ícones Lucide (string) ou imagem do Roblox (número). 0 para sem ícone (padrão).
-   LoadingTitle = "voce e importante",
-   LoadingSubtitle = "feito por um nigger",
-   Theme = "Default", -- Verifique os temas em https://docs.sirius.menu/rayfield/configuration/themes
+   Name = "Rayfield Example Window",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "Rayfield Interface Suite",
+   LoadingSubtitle = "by Sirius",
+   ShowText = "Rayfield", -- for mobile users to unhide rayfield, change if you'd like
+   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
 
-   DisableRayfieldPrompts = false, -- Desativa os prompts padrão do Rayfield
-   DisableBuildWarnings = false, -- Impede Rayfield de avisar quando há incompatibilidade de versão com o script
+   ToggleUIKeybind = "K", -- The keybind to toggle the UI visibility (string like "K" or Enum.KeyCode)
 
-   -- Configuração de salvamento
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = hubdata, -- Cria uma pasta personalizada para seu hub/jogo
+      FolderName = nil, -- Create a custom folder for your hub/game
       FileName = "Big Hub"
    },
 
-   -- Configurações do Discord
    Discord = {
-      Enabled = false, -- Pergunta ao usuário se deseja entrar no servidor Discord (se o executor permitir)
-      Invite = "noinvitelink", -- Código do convite do Discord (sem discord.gg/)
-      RememberJoins = true -- Define como false para pedir ao usuário que entre no Discord toda vez
+      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
    },
 
-   -- Sistema de chave (opcional)
-   KeySystem = false, -- Defina como true para ativar o sistema de chave
+   KeySystem = false, -- Set this to true to use our key system
    KeySettings = {
-      Title = "Sem título",
-      Subtitle = "Sistema de Chaves",
-      Note = "Nenhum método para obter a chave foi fornecido", -- Use para explicar como obter a chave
-      FileName = "Key", -- Recomenda-se usar algo único para evitar conflitos com outros scripts Rayfield
-      SaveKey = true, -- Salva a chave do usuário. Se você mudar a chave, ele não poderá usar o script antigo
-      GrabKeyFromSite = false, -- Se true, define abaixo o site RAW de onde o Rayfield deve obter a chave
-      Key = {"Hello"} -- Lista de chaves aceitas. Pode ser links RAW (pastebin, github etc) ou strings simples
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
    }
 })
-
--- Criação de uma aba na interface
-local Tab = Window:CreateTab("Exemplo de Aba", 4483362458) -- Título, Imagem
-
--- Seção dentro da aba
-local Section = Tab:CreateSection("Exemplo de Seção")
-
--- Botão com função vinculada
-local Button = Tab:Createbutton({
-   Name = "auto buy carrot",
-   Callback = function(local args = {
-   }
-   
-   local remote = game:GetService("ReplicatedStorage"):WaitForChild("BuySeedStock")
-   if remote:IsA("RemoteEvent") then
-       remote:FireServer(unpack(args))
-   elseif remote:IsA("RemoteFunction") then
-       local result = remote:InvokeServer(unpack(args))
-       print("Result:", result)
-   end)
-      -- Função executada ao clicar no botão
-   end,
-})
-
--- Carrega configurações salvas
-Rayfield:LoadConfiguration()
