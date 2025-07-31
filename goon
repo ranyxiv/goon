@@ -1,4 +1,4 @@
-ddebugX = true
+debugX = true
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
@@ -49,7 +49,16 @@ local Section = Tab:CreateSection("Exemplo de Seção")
 -- Botão com função vinculada
 local Button = Tab:CreateButton({
    Name = "auto buy carrot",
-   Callback = function()
+   Callback = function(local args = {
+   }
+   
+   local remote = game:GetService("ReplicatedStorage"):WaitForChild("BuySeedStock")
+   if remote:IsA("RemoteEvent") then
+       remote:FireServer(unpack(args))
+   elseif remote:IsA("RemoteFunction") then
+       local result = remote:InvokeServer(unpack(args))
+       print("Result:", result)
+   end)
       -- Função executada ao clicar no botão
    end,
 })
