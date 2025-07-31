@@ -69,7 +69,7 @@ local Button = Tab:CreateButton({
       -- Checagem a cada 10 segundos
       while true do
           buyCarrot()
-          wait(10)
+          wait(1)
       end
       )
       -- Função executada ao clicar no botão
