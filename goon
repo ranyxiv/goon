@@ -13,21 +13,22 @@ local Window = Rayfield:CreateWindow({
     KeySystem = false
 })
 
+-- Cria a aba corretamente
+local Tab = Window:CreateTab("Loja de Sementes", 4483362458) -- Ícone opcional
+
+-- Acessa o Remote
 local remote = game:GetService("ReplicatedStorage"):WaitForChild("BuySeedStock")
 
--- Cria uma aba no seu hub
-local Tab = Window:CreateTab("Loja de Sementes", 1234567890) -- o número aqui é um ID de ícone opcional
-
--- Cria o botão dentro da aba
+-- Adiciona o botão que executa a compra
 Tab:CreateButton({
     Name = "Comprar Semente de Cenoura 🥕",
     Callback = function()
-        local args = { "Carrot" } -- substitua por qualquer semente que desejar
+        local args = { "Carrot" } -- ou troque por outra semente
         if remote:IsA("RemoteEvent") then
             remote:FireServer(unpack(args))
         elseif remote:IsA("RemoteFunction") then
             local result = remote:InvokeServer(unpack(args))
             print("Resultado:", result)
         end
-    end,
+    end
 })
