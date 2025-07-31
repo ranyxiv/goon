@@ -1,4 +1,4 @@
-debugX = true
+ddebugX = true
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
@@ -48,8 +48,30 @@ local Section = Tab:CreateSection("Exemplo de Seção")
 
 -- Botão com função vinculada
 local Button = Tab:CreateButton({
-   Name = "Exemplo de Botão",
-   Callback = function()
+   Name = "auto buy carrot",
+   Callback = function(-- Script Educativo para Compra Automática de "Carrot"
+
+      local seedShop = game:GetService("Workspace").SeedShop
+      local player = game:GetService("Players").LocalPlayer
+      local ReplicatedStorage = game:GetService("ReplicatedStorage")
+      local buySeedEvent = ReplicatedStorage:WaitForChild("BuySeedEvent")
+      
+      -- Função para verificar e comprar "Carrot"
+      local function buyCarrot()
+          for _, item in ipairs(seedShop:GetChildren()) do
+              if item.Name == "Carrot" and item:IsA("Model") and item:FindFirstChild("BuyButton") then
+                  print("Carrot encontrada! Tentando comprar...")
+                  buySeedEvent:FireServer("Carrot")
+              end
+          end
+      end
+      
+      -- Checagem a cada 10 segundos
+      while true do
+          buyCarrot()
+          wait(10)
+      end
+      )
       -- Função executada ao clicar no botão
    end,
 })
