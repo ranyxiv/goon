@@ -34,32 +34,3 @@ local Window = Rayfield:CreateWindow({
       Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
    }
 })
-local Tab = Window:CreateTab("Loja de Sementes", 4483362458)
-local remote = game:GetService("ReplicatedStorage"):WaitForChild("BuySeedStock")
-
--- Variável de controle do loop
-local ativo = false
-
--- Função do toggle
-local Toggle = Tab:CreateToggle({
-    Name = "Auto Comprar Cenoura 🥕",
-    CurrentValue = false,
-    Flag = "Toggle1",
-    Callback = function(Value)
-        ativo = Value
-        if ativo then
-            -- Inicia o loop em segundo plano
-            task.spawn(function()
-                while ativo do
-                    if remote:IsA("RemoteEvent") then
-                        remote:FireServer("Carrot")
-                    elseif remote:IsA("RemoteFunction") then
-                        local result = remote:InvokeServer("Carrot")
-                        print("Resultado:", result)
-                    end
-                    task.wait(0.5) -- tempo entre cada compra (ajustável)
-                end
-            end)
-        end
-    end,
-})
