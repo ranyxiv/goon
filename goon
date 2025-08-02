@@ -1,38 +1,30 @@
--- LocalScript em StarterGui/GardenToggleGui
+local player = game.Players.LocalPlayer
+local pet = workspace.Pets:FindFirstChild(player.Name)
+local gardenCenter = workspace.Garden.Center.Position
 
-local button = script.Parent:WaitForChild("ToggleButton")
-local workspace = game:GetService("Workspace")
+local button = script.Parent -- O script está dentro do botão
 
-local petName       = "moon cat"             -- Nome exato do modelo do pet no Workspace
-local gardenCenter  = Vector3.new(0, 0, 0)    -- Posição central do jardim
-local defaultSpeed  = 16                     -- Velocidade padrão ao descongelar
-local isFrozen      = false
+button.MouseButton1Click:Connect(function()
+    if pet and pet:FindFirstChild("HumanoidRootPart") then
+        -- Move o pet para o centro do jardim
+        pet:MoveTo(gardenCenter)
 
-local function togglePetFreeze()
-    local pet = workspace:FindFirstChild(petName)
-    if not pet or not pet:FindFirstChild("HumanoidRootPart") then
-        warn("Pet '" .. petName .. "' não encontrado ou sem HumanoidRootPart")
-        return
-    end
-
-    if isFrozen then
-        -- Descongela
-        pet.HumanoidRootPart.Anchored = false
-        if pet:FindFirstChild("Humanoid") then
-            pet.Humanoid.WalkSpeed = defaultSpeed
-        end
-        button.Text = "Freeze Pet"
-    else
-        -- Teleporta e congela
-        pet:SetPrimaryPartCFrame(CFrame.new(gardenCenter))
+        -- Espera o pet chegar, então paralisa
+        pet:MoveTo(gardenCenter)
         pet.HumanoidRootPart.Anchored = true
-        if pet:FindFirstChild("Humanoid") then
-            pet.Humanoid.WalkSpeed = 0
-        end
-        button.Text = "Unfreeze Pet"
+
+        -- Opcional: Mostra uma mensagem
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Pet Paralisado!";
+            Text = "Seu pet foi paralisado no jardim!";
+            Duration = 2;
+        })
+    else
+        -- Opcional: Mensagem de erro
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Erro";
+            Text = "Pet não encontrado!";
+            Duration = 2;
+        })
     end
-
-    isFrozen = not isFrozen
-end
-
-button.MouseButton1Click:Connect(togglePetFreeze)
+end)
