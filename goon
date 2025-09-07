@@ -1,130 +1,21 @@
--- Carregar a lib
 loadstring(game:HttpGet(("https://raw.githubusercontent.com/REDzHUB/LibraryV2/main/redzLib")))()
 
--- Criar janela
 MakeWindow({
-  Hub = {
-    Title = "RedZ HUB - Teste Geral",
-    Animation = "Interface Completa"
-  },
-  Key = {
-    KeySystem = false
-  }
-})
-
--- Minimize Button
-MinimizeButton({
-  Size = {40, 40},
-  Color = Color3.fromRGB(30, 30, 30),
-  Corner = true
-})
-
--- Criar aba principal
-local Main = MakeTab({Name = "Testes"})
-
--- Notificação inicial
-MakeNotifi({
-  Title = "RedZ HUB",
-  Text = "Interface de testes carregada!",
-  Time = 5
-})
-
--- Seção
-local section = AddSection(Main, {"Seção de Testes"})
-SetSection(section, "Todos os componentes")
-
--- Botão
-AddButton(Main, {
-  Name = "Botão de Teste",
-  Callback = function()
-    print("Botão pressionado!")
-  end
-})
-
--- Toggle
-local Toggle = AddToggle(Main, {
-  Name = "Ativar Função",
-  Default = false,
-  Callback = function(Value)
-    print("Toggle ->", Value)
-  end
-})
-
--- Mobile Toggle
-local MobileToggle = AddMobileToggle({
-  Name = "Mobile Toggle",
-  Visible = true,
-  Callback = function(Value)
-    print("MobileToggle ->", Value)
-  end
-})
-
--- Slider
-local Slider = AddSlider(Main, {
-  Name = "Velocidade",
-  MinValue = 10,
-  MaxValue = 100,
-  Default = 25,
-  Increase = 5,
-  Callback = function(Value)
-    print("Slider ->", Value)
-  end
-})
-
--- Keybind
-AddKeybind(Main, {
-  Name = "Atalho Teste",
-  KeyCode = "E",
-  Default = false,
-  Callback = function(Value)
-    print("Keybind ativado:", Value)
-  end
-})
-
--- TextBox
-AddTextBox(Main, {
-  Name = "Caixa de Texto",
-  Default = "redz",
-  PlaceholderText = "Digite aqui",
-  ClearText = true,
-  Callback = function(Value)
-    print("TextBox ->", Value)
-  end
-})
-
--- Dropdown
-local Dropdown = AddDropdown(Main, {
-  Name = "Escolha uma opção",
-  Options = {"Opção 1", "Opção 2", "Opção 3"},
-  Default = "Opção 2",
-  Callback = function(Value)
-    print("Dropdown ->", Value)
-  end
-})
-
--- Color Picker
-AddColorPicker(Main, {
-  Name = "Escolher cor",
-  Default = Color3.fromRGB(255, 255, 0),
-  Callback = function(Value)
-    print("Cor escolhida ->", Value)
-  end
-})
-
--- Paragraph
-local Paragraph = AddParagraph(Main, {"Parágrafo", "Este é um parágrafo de exemplo."})
-SetParagraph(Paragraph, {"Parágrafo Atualizado", "Novo conteúdo"})
-
--- Label
-local Label = AddTextLabel(Main, "Texto inicial")
-SetLabel(Label, "Texto atualizado")
-
--- Image Label
-local Image = AddImageLabel(Main, {
-  Name = "Logo",
-  Image = "rbxassetid://4155801252"
-})
-SetImage(Image, "rbxassetid://7072718362")
-
--- Atualizações dinâmicas de teste
-UpdateToggle(Tog
+    Hub = {
+      Title = "REDz HUB",
+      Animation = "by : redz9999"
+    },
+    Key = {
+      KeySystem = false,
+      Title = "Key System",
+      Description = "",
+      KeyLink = "",
+      Keys = {"1234"},
+      Notifi = {
+        Notifications = true,
+        CorrectKey = "Running the Script...",
+        Incorrectkey = "The key is incorrect",
+        CopyKeyLink = "Copied to Clipboard"
+      }
+    }
+  })
