@@ -1,75 +1,130 @@
--- Carrega a biblioteca RedzLibV5
-local redzlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV5/main/Source.Lua"))()
+-- Carregar a lib
+loadstring(game:HttpGet(("https://raw.githubusercontent.com/REDzHUB/LibraryV2/main/redzLib")))()
 
--- Cria a janela principal
-local Window = redzlib:MakeWindow({
-    Title = "Test UI v2",
-    SubTitle = "interface de teste",
-    SaveFolder = "Redz Config"
+-- Criar janela
+MakeWindow({
+  Hub = {
+    Title = "RedZ HUB - Teste Geral",
+    Animation = "Interface Completa"
+  },
+  Key = {
+    KeySystem = false
+  }
 })
 
--- Cria uma aba
-local Tab1 = Window:MakeTab({"Teste Geral", "test"})
-
--- Botão que imprime mensagem
-Tab1:AddButton({
-    Name = "Btn Olá",
-    Description = "Imprime mensagem de saudação",
-    Callback = function()
-        print("Olá, mundo!")
-    end
+-- Minimize Button
+MinimizeButton({
+  Size = {40, 40},
+  Color = Color3.fromRGB(30, 30, 30),
+  Corner = true
 })
 
--- Toggle para ativar/desativar alguma funcionalidade
-local toggleAtivado = false
-Tab1:AddToggle({
-    Name = "Ativar Speed",
-    Description = "Ativa/desativa aumentar velocidade",
-    Default = false,
-    Callback = function(state)
-        toggleAtivado = state
-        print("Speed ativado:", state)
-    end
+-- Criar aba principal
+local Main = MakeTab({Name = "Testes"})
+
+-- Notificação inicial
+MakeNotifi({
+  Title = "RedZ HUB",
+  Text = "Interface de testes carregada!",
+  Time = 5
 })
 
--- Slider para controlar a velocidade de caminhada
-Tab1:AddSlider({
-    Name = "Velocidade (WalkSpeed)",
-    Min = 16,
-    Max = 100,
-    Increase = 1,
-    Default = 16,
-    Callback = function(value)
-        if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
-            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
-        end
-    end
+-- Seção
+local section = AddSection(Main, {"Seção de Testes"})
+SetSection(section, "Todos os componentes")
+
+-- Botão
+AddButton(Main, {
+  Name = "Botão de Teste",
+  Callback = function()
+    print("Botão pressionado!")
+  end
 })
 
--- Botões adicionais de teste
-Tab1:AddButton({
-    Name = "Teste Teleportar",
-    Description = "Teleporta para posição exemplo",
-    Callback = function()
-        local plr = game.Players.LocalPlayer
-        if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
-            plr.Character.HumanoidRootPart.CFrame = CFrame.new(0, 50, 0)
-            print("Teleportado para 0,50,0")
-        end
-    end
+-- Toggle
+local Toggle = AddToggle(Main, {
+  Name = "Ativar Função",
+  Default = false,
+  Callback = function(Value)
+    print("Toggle ->", Value)
+  end
 })
 
-Tab1:AddButton({
-    Name = "Toggle X-Ray",
-    Description = "Ativa/desativa transparência dos objetos",
-    Callback = function()
-        for _, part in pairs(workspace:GetDescendants()) do
-            if part:IsA("BasePart") then
-                part.Transparency = (part.Transparency == 0) and 0.5 or 0
-            end
-        end
-        print("X-Ray toggled")
-    end
+-- Mobile Toggle
+local MobileToggle = AddMobileToggle({
+  Name = "Mobile Toggle",
+  Visible = true,
+  Callback = function(Value)
+    print("MobileToggle ->", Value)
+  end
 })
 
-print("Interface de teste carregada com sucesso!")
+-- Slider
+local Slider = AddSlider(Main, {
+  Name = "Velocidade",
+  MinValue = 10,
+  MaxValue = 100,
+  Default = 25,
+  Increase = 5,
+  Callback = function(Value)
+    print("Slider ->", Value)
+  end
+})
+
+-- Keybind
+AddKeybind(Main, {
+  Name = "Atalho Teste",
+  KeyCode = "E",
+  Default = false,
+  Callback = function(Value)
+    print("Keybind ativado:", Value)
+  end
+})
+
+-- TextBox
+AddTextBox(Main, {
+  Name = "Caixa de Texto",
+  Default = "redz",
+  PlaceholderText = "Digite aqui",
+  ClearText = true,
+  Callback = function(Value)
+    print("TextBox ->", Value)
+  end
+})
+
+-- Dropdown
+local Dropdown = AddDropdown(Main, {
+  Name = "Escolha uma opção",
+  Options = {"Opção 1", "Opção 2", "Opção 3"},
+  Default = "Opção 2",
+  Callback = function(Value)
+    print("Dropdown ->", Value)
+  end
+})
+
+-- Color Picker
+AddColorPicker(Main, {
+  Name = "Escolher cor",
+  Default = Color3.fromRGB(255, 255, 0),
+  Callback = function(Value)
+    print("Cor escolhida ->", Value)
+  end
+})
+
+-- Paragraph
+local Paragraph = AddParagraph(Main, {"Parágrafo", "Este é um parágrafo de exemplo."})
+SetParagraph(Paragraph, {"Parágrafo Atualizado", "Novo conteúdo"})
+
+-- Label
+local Label = AddTextLabel(Main, "Texto inicial")
+SetLabel(Label, "Texto atualizado")
+
+-- Image Label
+local Image = AddImageLabel(Main, {
+  Name = "Logo",
+  Image = "rbxassetid://4155801252"
+})
+SetImage(Image, "rbxassetid://7072718362")
+
+-- Atualizações dinâmicas de teste
+UpdateToggle(Tog
