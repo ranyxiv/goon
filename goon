@@ -1,30 +1,75 @@
-local player = game.Players.LocalPlayer
-local pet = workspace.Pets:FindFirstChild(player.Name)
-local gardenCenter = workspace.Garden.Center.Position
+-- Carrega a biblioteca RedzLibV5
+local redzlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV5/main/Source.Lua"))()
 
-local button = script.Parent -- O script está dentro do botão
+-- Cria a janela principal
+local Window = redzlib:MakeWindow({
+    Title = "Test UI v2",
+    SubTitle = "interface de teste",
+    SaveFolder = "Redz Config"
+})
 
-button.MouseButton1Click:Connect(function()
-    if pet and pet:FindFirstChild("HumanoidRootPart") then
-        -- Move o pet para o centro do jardim
-        pet:MoveTo(gardenCenter)
+-- Cria uma aba
+local Tab1 = Window:MakeTab({"Teste Geral", "test"})
 
-        -- Espera o pet chegar, então paralisa
-        pet:MoveTo(gardenCenter)
-        pet.HumanoidRootPart.Anchored = true
-
-        -- Opcional: Mostra uma mensagem
-        game.StarterGui:SetCore("SendNotification", {
-            Title = "Pet Paralisado!";
-            Text = "Seu pet foi paralisado no jardim!";
-            Duration = 2;
-        })
-    else
-        -- Opcional: Mensagem de erro
-        game.StarterGui:SetCore("SendNotification", {
-            Title = "Erro";
-            Text = "Pet não encontrado!";
-            Duration = 2;
-        })
+-- Botão que imprime mensagem
+Tab1:AddButton({
+    Name = "Btn Olá",
+    Description = "Imprime mensagem de saudação",
+    Callback = function()
+        print("Olá, mundo!")
     end
-end)
+})
+
+-- Toggle para ativar/desativar alguma funcionalidade
+local toggleAtivado = false
+Tab1:AddToggle({
+    Name = "Ativar Speed",
+    Description = "Ativa/desativa aumentar velocidade",
+    Default = false,
+    Callback = function(state)
+        toggleAtivado = state
+        print("Speed ativado:", state)
+    end
+})
+
+-- Slider para controlar a velocidade de caminhada
+Tab1:AddSlider({
+    Name = "Velocidade (WalkSpeed)",
+    Min = 16,
+    Max = 100,
+    Increase = 1,
+    Default = 16,
+    Callback = function(value)
+        if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+        end
+    end
+})
+
+-- Botões adicionais de teste
+Tab1:AddButton({
+    Name = "Teste Teleportar",
+    Description = "Teleporta para posição exemplo",
+    Callback = function()
+        local plr = game.Players.LocalPlayer
+        if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+            plr.Character.HumanoidRootPart.CFrame = CFrame.new(0, 50, 0)
+            print("Teleportado para 0,50,0")
+        end
+    end
+})
+
+Tab1:AddButton({
+    Name = "Toggle X-Ray",
+    Description = "Ativa/desativa transparência dos objetos",
+    Callback = function()
+        for _, part in pairs(workspace:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.Transparency = (part.Transparency == 0) and 0.5 or 0
+            end
+        end
+        print("X-Ray toggled")
+    end
+})
+
+print("Interface de teste carregada com sucesso!")
